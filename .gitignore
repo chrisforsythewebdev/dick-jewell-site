@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+studio/node_modules/
+
+# Build output
+.next/
+out/
+studio/dist/
+
+# Environment variables
+.env
+.env.local
+
+# OS/macOS system files
+.DS_Store
+
+# Sanity-related
+.sanity/
+studio/.sanity/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel deployment files (optional)
+.vercel/

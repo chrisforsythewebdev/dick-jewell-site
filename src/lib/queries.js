@@ -9,3 +9,14 @@ export const allFilmsQuery = `
     "hoverImage": hoverImage.asset->url
   }
 `
+export const photoPageQuery = `
+  *[_type == "photoPage"][0] {
+    title,
+    "carouselImages": carouselImages[].asset->url,
+    photos[] {
+      title,
+      "image": image.asset->url,
+      "hoverImage": hoverImage.asset->url
+    }
+  }
+`

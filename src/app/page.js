@@ -108,10 +108,6 @@ export default function HomePage() {
         no means complete. Will be adding more film clips and images from my
         archives weather permitting.
       </p>
-
-      <footer className="text-xs text-red-600 mb-8">
-        <p>© Dick Jewell</p>
-      </footer>
     </main>
   );
 }

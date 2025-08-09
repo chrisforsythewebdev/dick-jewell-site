@@ -1,3 +1,4 @@
 import films from "./films.js"
+import photos from "./photos.js"
 
-export const schemaTypes = [films]
+export const schemaTypes = [films, photos]

@@ -548,7 +548,6 @@ figcaption {
 }
 
 /* SHOP */
-/* --- Hard reset for anything inside the shop area --- */
 .shop-options,
 .shop-options * {
   writing-mode: horizontal-tb;
@@ -558,21 +557,36 @@ figcaption {
   overflow-wrap: normal;
 }
 
-/* Titles still bold and centered */
 .shop-title {
-  white-space: normal;   /* or 'nowrap' if you want one line */
+  white-space: normal; 
 }
 
-/* Make product images behave */
 .shop-item img {
   width: 100%;
-  height: auto;          /* <- change from 50% to auto to avoid distortion */
+  height: auto;          
   margin-bottom: 1em;
 }
 
-/* Give each PayPal slot a sensible width so the SDK can size the buttons */
 .paypal-slot {
-  min-width: 300px;      /* 280–320px works well */
-  width: 300px;          /* fixed keeps buttons crisp */
+  min-width: 300px;      
+  width: 300px;          
   display: inline-block;
 }
+
+/* The Box */
+.the-box {
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5rem; 
+  box-sizing: border-box;
+}
+
+.the-box img {
+  margin-top: 1em;
+  width: 100%;
+  max-width: 675px;
+  object-fit: contain;
+  display: block;
+}  

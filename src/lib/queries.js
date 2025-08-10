@@ -49,3 +49,15 @@ export const booksPageQuery = `
   }
 `
 
+export const boxPageQuery = `
+  *[_type == "boxPage"][0]{
+    title,
+    intro,
+    "carouselImages": carouselImages[].asset->url,
+    afterCarouselNote,
+    figures[]{
+      caption,
+      "image": image.asset->url
+    }
+  }
+`

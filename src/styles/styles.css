@@ -507,4 +507,72 @@ figcaption {
   }
 }
 
+.carousel-caption {
+  margin-top: 0.5em;
+  font-size: 0.9rem;
+  color: #222;
+  text-align: center;
+  max-width: 100%;
+}
 
+.book-carousel .carousel-frame {
+  height: 600px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.book-carousel #carouselImage {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 768px) {
+  .book-carousel .carousel-frame {
+    height: auto;
+  }
+
+  .book-carousel #carouselImage {
+    max-height: 80vh;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* SHOP */
+/* --- Hard reset for anything inside the shop area --- */
+.shop-options,
+.shop-options * {
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Titles still bold and centered */
+.shop-title {
+  white-space: normal;   /* or 'nowrap' if you want one line */
+}
+
+/* Make product images behave */
+.shop-item img {
+  width: 100%;
+  height: auto;          /* <- change from 50% to auto to avoid distortion */
+  margin-bottom: 1em;
+}
+
+/* Give each PayPal slot a sensible width so the SDK can size the buttons */
+.paypal-slot {
+  min-width: 300px;      /* 280–320px works well */
+  width: 300px;          /* fixed keeps buttons crisp */
+  display: inline-block;
+}

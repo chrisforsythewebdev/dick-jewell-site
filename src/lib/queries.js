@@ -20,3 +20,32 @@ export const photoPageQuery = `
     }
   }
 `
+
+export const booksPageQuery = `
+  *[_type == "booksPage"][0]{
+    title,
+    catalogue{
+      title,
+      "image": image.asset->url,
+      link,
+      caption
+    },
+    intro,
+    "bookCarousel": bookCarousel[]{
+      "image": image.asset->url,
+      caption
+    },
+    afterCarouselCaption,
+    regions[]{
+      title,
+      items[]{
+        "image": image.asset->url,
+        hostedButtonId,
+        label
+      }
+    },
+    "paypalClientId": paypal.clientId,
+    "paypalCurrency": coalesce(paypal.currency, "GBP")
+  }
+`
+

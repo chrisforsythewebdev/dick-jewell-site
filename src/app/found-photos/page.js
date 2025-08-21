@@ -29,7 +29,9 @@ export default async function FoundPhotosPage() {
 
   return (
     <main className="photo-page">
-      <h1 className="page-title" style={{ marginTop: '1.5em' }}>{title}</h1>
+      <div className='intro'>
+      <h1 className="page-title" style={{ marginTop: '1.5em' }}>{title}</h1>        
+      </div>
       {intro && <p className="intro">{intro}</p>}
 
       {/* 1) MAIN CAROUSEL */}
@@ -78,7 +80,10 @@ export default async function FoundPhotosPage() {
       )}
 
       {/* 4) SUBSECTION + SECOND CAROUSEL */}
-      {subheading1 && <h1 className='page-title'>{subheading1}</h1>}
+      {subheading1 && 
+        <div className='intro'>
+        <h1 className='page-title'>{subheading1}</h1>
+      </div>}
       {subintro1 && <p className="intro">{subintro1}</p>}
 
       {secondCarouselImages.length > 0 && (

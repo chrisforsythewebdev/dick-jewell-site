@@ -144,5 +144,18 @@ export const foundPhotosQuery = `
   }
 `
 
-
-
+export const jewellsPageQuery = /* groq */ `
+*[_type == "jewellsPage"][0]{
+title,
+introRows[]{
+"image": image.asset->url,
+alt,
+caption,
+text,
+reverse
+},
+afterRowsParagraph,
+sectionHeading,
+videoUrl
+}
+`

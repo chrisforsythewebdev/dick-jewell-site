@@ -144,7 +144,7 @@ export const foundPhotosQuery = `
   }
 `
 
-export const jewellsPageQuery = /* groq */ `
+export const jewellsPageQuery = `
 *[_type == "jewellsPage"][0]{
 title,
 introRows[]{
@@ -158,4 +158,77 @@ afterRowsParagraph,
 sectionHeading,
 videoUrl
 }
+`
+
+export const montagesPageQuery = `
+  *[_type == "montagesPage"][0]{
+    title,
+    intro,
+    items[]{
+      href,
+      "image": image.asset->url,
+      alt,
+      title,
+      subtitle,
+      wide
+    }
+  }
+`
+
+export const montageWorkSlugsQuery = `
+  *[_type == "montageWork" && defined(slug.current)][].slug.current
+`
+
+export const montageWorkBySlugQuery = `
+  *[_type == "montageWork" && slug.current == $slug][0]{
+    title,
+    backLabel,
+    backHref,
+    figures[]{
+      "image": image.asset->url,
+      alt,
+      caption
+    },
+    description,
+    seoTitle
+  }
+`
+
+export const showsPageQuery = /* groq */ `
+  *[_type == "showsPage"][0]{
+    title,
+    sections[]{
+      heading,
+      anchorId,
+      // single static image block (no controls)
+      singleImage{
+        "image": image.asset->url,
+        alt
+      },
+
+      // mixed slides
+      "slides": slides[]{
+        // normalize both slide types into a flat shape the component expects
+        _type,
+        // image slide
+        "type": select(
+          defined(image) => "image",
+          defined(mp4) => "video",
+          _type
+        ),
+        "image": image.asset->url,
+        alt,
+        linkHref,
+        linkTarget,
+        // video slide
+        "mp4": mp4.asset->url,         
+        "poster": poster.asset->url,
+        captionHtml
+      },
+
+      withControls,
+      caption,
+      captionClass
+    }
+  }
 `

@@ -33,7 +33,7 @@ export default function Navbar() {
       <ul className="nav-links">
         <li><a href="/">home page</a></li>
         <li><a href="/films">films</a></li>
-        <li><a href="/frameset/frameset">kinky gerlinky</a></li>
+        <li><a href="/kinky-gerlinky">kinky gerlinky</a></li>
         <li><a href="/prints">prints</a></li>
         <li><a href="/photos">photos</a></li>
         <li><a href="/found-photos">found photos</a></li>

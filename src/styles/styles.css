@@ -941,3 +941,105 @@ flex: 0 1 40%;
     width: 100%;
   }
 }
+
+
+/* SHOWS */
+/* SHOWS (page wrapper) */
+.shows-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.show {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.show h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* ---- Carousel container ---- */
+.show-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1000px;     /* like your original layout */
+  margin: 0 auto;
+}
+
+/* ---- The strip ---- */
+.show-carousel-track {
+  display: flex;
+  flex-wrap: nowrap;     /* single row */
+  transition: transform 0.4s ease-in-out;
+  will-change: transform;
+}
+
+/* Each slide = one viewport width with a fixed height box */
+.show-carousel-track > * {
+  flex: 0 0 100%;
+  height: 520px;         /* <- set your uniform slide height here */
+  display: flex;         /* center media in the box */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slide media (images) */
+.show-carousel-image {
+  max-height: 100%;      /* fit inside the slide height */
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  display: block;
+  object-fit: contain;   /* keep proportions, no cropping */
+}
+
+/* Video slide container (inherits the fixed height above) */
+.show-video-slide {
+  width: 100%;
+}
+
+/* Video element styling (fits like images) */
+/* for video slides */
+.show-unstable-video {
+  max-height: 500px;   /* match the images’ max height */
+  width: auto;
+  margin: 0 auto;      /* center horizontally */
+  display: block;
+  object-fit: contain; /* keep proportions without cropping */
+}
+
+
+/* Optional caption for video slides */
+.show-video-caption {
+  margin-top: 1rem;
+  text-align: center;
+  color: black;
+}
+
+/* Under-section caption text */
+.show-caption {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Controls */
+.show-carousel-controls-original {
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+  margin-top: 0.5rem;
+}
+
+/* Buttons (use your existing images for arrows) */
+button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}

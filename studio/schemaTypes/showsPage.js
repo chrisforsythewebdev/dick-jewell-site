@@ -1,4 +1,4 @@
-export const showsPage = {
+export default {
     name: 'showsPage',
     title: 'Shows Page',
     type: 'document',

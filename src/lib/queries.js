@@ -232,3 +232,91 @@ export const showsPageQuery = /* groq */ `
     }
   }
 `
+
+export const commercialPageQuery = /* groq */ `
+*[_type == "commercialPage"][0]{
+  title,
+  intro,
+  items[]{
+    _key,
+    // link target
+    "slug": video->slug.current,
+    "title": video->title,
+    alt,
+    captionHtml,
+    // images
+    "thumb": thumb{ "assetUrl": asset->url },
+    "hoverThumb": hoverThumb{ "assetUrl": asset->url }
+  },
+  singleImages[]{
+    _key,
+    "image": image{ "assetUrl": asset->url },
+    alt,
+    caption
+  },
+  miniGalleries[]{
+    _key,
+    wrapTopRow,
+    groupCaption,
+    images[]{
+      _key,
+      "assetUrl": image.asset->url,
+      alt
+    }
+  }
+}
+`
+
+export const commercialVideoBySlugQuery = /* groq */ `
+*[_type == "commercialVideo" && slug.current == $slug][0]{
+  title,
+  "slug": slug.current,
+  seoTitle,
+  vimeoUrl,
+  descriptionHtml,
+  backLabel
+}
+`
+
+// Header (banner + sublinks)
+export const kinkyGerlinkyHeaderQuery = /* groq */ `
+*[_type == "kinkyGerlinkySettings"][0]{
+  "bannerUrl": banner.asset->url,
+  "links": links[]{
+    label,
+    target,
+    "href": select(
+      type == "dvd" => "/kinky-gerlinky/dvds/" + dvdRef->slug.current,
+      type == "static" => "/kinky-gerlinky/" + staticRef->slug.current,
+      type == "external" => url,
+      null
+    )
+  }
+}
+`
+
+// Landing page content
+export const kinkyGerlinkyPageQuery = /* groq */ `
+*[_type == "kinkyGerlinkyPage"][0]{
+  title,
+  intro,
+  // left column
+  "leftGallery": leftGallery[]{
+    "image": image.asset->url,
+    alt,
+    caption
+  },
+  // right column
+  screenings{
+    heading,
+    "blocks": blocks[]{
+      "image": image.asset->url,
+      alt,
+      textHtml
+    },
+    extraList,
+    closingHtml
+  }
+}
+`
+

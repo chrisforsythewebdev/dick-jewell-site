@@ -1,35 +1,80 @@
 import { sanityClient } from '@/lib/client'
-import { kinkyGerlinkyStaticQuery, kinkyGerlinkyHeaderQuery } from '@/lib/queries'
+import { KG_BUY_DVD, kinkyGerlinkyHeaderQuery } from '@/lib/queries'
 import KGHeader from '@/components/KGHeader'
+import { PortableText } from '@portabletext/react'
+import styles from './buy-dvd.module.css'   
 
 export const revalidate = 60
 export const metadata = { title: 'Kinky Gerlinky – Buy DVD' }
 
 export default async function BuyDvdPage() {
   const [data, header] = await Promise.all([
-    sanityClient.fetch(kinkyGerlinkyStaticQuery, { slug: 'buy-dvd' }),
-    sanityClient.fetch(kinkyGerlinkyHeaderQuery)
+    sanityClient.fetch(KG_BUY_DVD),
+    sanityClient.fetch(kinkyGerlinkyHeaderQuery),
   ])
   if (!data) return null
 
-  const { title = 'Buy DVD', bodyHtml, images = [] } = data
+  const { title, info = [], cover, watchUrl, stills = [], press } = data
 
   return (
-    <main className="video-page">
+    <main>
       <KGHeader bannerUrl={header?.bannerUrl} links={header?.links} />
-      <h1>{title}</h1>
 
-      {bodyHtml && <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
+      <section className={styles.kgDvdInfo}>
+      
+          <h2>{title}</h2>
 
-      {images?.length > 0 && (
-        <div className="mini-gallery">
-          <div className="top-row">
-            {images.map((im, i) => (
-              <img key={i} src={im.assetUrl} alt={im.alt || ''} />
+        {info?.length > 0 && (
+          <div className={styles.kgInfo}>
+            <PortableText value={info} />
+          </div>
+        )}
+
+        {(cover?.url || watchUrl) && (
+          <div className={styles.dvdPurchaseOptions}>
+            <div className={styles.trailerVideo}>
+              {cover?.url && (
+                <img
+                  src={cover.url}
+                  alt={cover.alt || 'Kinky Gerlinky DVD cover'}
+                  className={styles.dvdCover}
+                />
+              )}
+              {watchUrl && (
+                <p>
+                  <em>
+                    <a href={watchUrl} target="_blank" rel="noreferrer">
+                      Click here to watch the film
+                    </a>
+                  </em>
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {stills.length > 0 && (
+          <div className={styles.vhsStills}>
+            {stills.map((s, i) => (
+              <img key={i} src={s.url} alt={s.alt || 'Kinky Gerlinky still'} />
             ))}
           </div>
-        </div>
-      )}
+        )}
+
+        {(press?.url || press?.caption) && (
+          <>
+            <h2 className={styles.pressHeading}>Press Release</h2>
+            {press?.url && (
+              <img
+                src={press.url}
+                alt={press.alt || 'Kinky Gerlinky Press Release'}
+                className={styles.pressImage}
+              />
+            )}
+            {press?.caption && <div className={styles.caption}>{press.caption}</div>}
+          </>
+        )}
+      </section>
     </main>
   )
 }

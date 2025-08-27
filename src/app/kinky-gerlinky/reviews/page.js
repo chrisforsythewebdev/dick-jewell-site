@@ -1,35 +1,26 @@
 import { sanityClient } from '@/lib/client'
-import { kinkyGerlinkyStaticQuery, kinkyGerlinkyHeaderQuery } from '@/lib/queries'
+import { KG_REVIEWS, kinkyGerlinkyHeaderQuery } from '@/lib/queries'
 import KGHeader from '@/components/KGHeader'
+import ReviewsCarousel from './ReviewsCarousel'
+import styles from './reviews.module.css'
+import { notFound } from 'next/navigation'
 
 export const revalidate = 60
 export const metadata = { title: 'Kinky Gerlinky – Reviews' }
 
 export default async function ReviewsPage() {
   const [data, header] = await Promise.all([
-    sanityClient.fetch(kinkyGerlinkyStaticQuery, { slug: 'reviews' }),
-    sanityClient.fetch(kinkyGerlinkyHeaderQuery)
+    sanityClient.fetch(KG_REVIEWS),
+    sanityClient.fetch(kinkyGerlinkyHeaderQuery),
   ])
-  if (!data) return null
-
-  const { title = 'Reviews', bodyHtml, images = [] } = data
+  if (!data) notFound()
 
   return (
-    <main className="video-page">
+    <main>
       <KGHeader bannerUrl={header?.bannerUrl} links={header?.links} />
-      <h1>{title}</h1>
-
-      {bodyHtml && <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
-
-      {images?.length > 0 && (
-        <div className="mini-gallery">
-          <div className="top-row">
-            {images.map((im, i) => (
-              <img key={i} src={im.assetUrl} alt={im.alt || ''} />
-            ))}
-          </div>
-        </div>
-      )}
+      <section className={styles.wrap}>
+        <ReviewsCarousel items={data.items || []} arrows={data.arrows} />
+      </section>
     </main>
   )
 }

@@ -1,69 +1,71 @@
+// app/films/page.jsx
 import Link from 'next/link'
-import Image from 'next/image'
 import { sanityClient } from '@/lib/client'
 import '../../styles/styles.css'
 
-export const revalidate = 60 // ISR
+export const revalidate = 60
 
 export default async function FilmsPage() {
   const films = await getFilms()
 
   return (
     <div className="films-grid-wrapper">
-      <section className="intro">
+      <section className="films-intro">
         <h1>Some of my films</h1>
         <p>(Click on the images for more info, clips etc)</p>
       </section>
 
-      <div className="films-grid">
+      <section className="films-grid">
         {films.map((film) => {
-          const hasHover = Boolean(film.hoverImage)
+          const hasHover = !!film.hoverImage
+          const isExternal = !!film.externalUrl
+          const href = isExternal ? film.externalUrl : `/films/${film.slug.current}`
+
+          const Wrapper = ({ children }) =>
+            isExternal ? (
+              <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+            ) : (
+              <Link href={href}>{children}</Link>
+            )
 
           return (
             <div key={film._id} className="film-card">
-              <Link href={`/films/${film.slug.current}`}>
+              <Wrapper>
                 <div className={`film-card-image-wrapper ${hasHover ? 'hover-image' : ''}`}>
                   {film.thumbnail && (
-                    <Image
-                      src={film.thumbnail}
-                      alt={film.title}
-                      width={300}
-                      height={220}
-                      className="default-img"
-                    />
+                    <img src={film.thumbnail} alt={film.title} className="default-img" />
                   )}
                   {hasHover && (
-                    <Image
-                      src={film.hoverImage}
-                      alt={`${film.title} hover`}
-                      width={300}
-                      height={220}
-                      className="hover-img"
-                    />
+                    <img src={film.hoverImage} alt="" aria-hidden="true" className="hover-img" />
                   )}
                 </div>
 
                 <div className="film-info">
-                  <h2 className='font-bold'>{film.title}</h2>
-                  <p>{film.year} — {film.duration}</p>
+                  <h2>{film.title}</h2>
+                  <p>
+                    {film.year ? `${film.year} — ` : ''}
+                    {film.duration}
+                  </p>
                 </div>
-              </Link>
+              </Wrapper>
             </div>
           )
         })}
-      </div>
+      </section>
     </div>
   )
 }
 
 async function getFilms() {
   return await sanityClient.fetch(`
-    *[_type == "film"] | order(year desc){
+    *[_type == "film"]
+    | order(coalesce(year, 9999) asc, title asc){
       _id,
       title,
       slug,
       year,
       duration,
+      externalUrl,          // NEW
       "thumbnail": thumbnail.asset->url,
       "hoverImage": hoverImage.asset->url
     }

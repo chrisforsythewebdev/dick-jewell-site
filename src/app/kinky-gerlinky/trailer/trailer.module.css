@@ -1,0 +1,24 @@
+.wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  .backLink { margin-bottom: 1rem; color: blue; text-decoration: underline; }
+  
+  .videoContainer {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  .videoContainer iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  

@@ -1,0 +1,115 @@
+/* === Legacy look, 1:1 === */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;          /* legacy had 0 1rem here */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* page heading */
+  .container h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  
+  /* intro block */
+  .intro {
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2rem;
+    font-size: 0.8em;
+  }
+  .intro h2 {
+    font-size: 18px;
+    color: #FF00CC;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-weight: bold;
+  }
+  .intro h3 a {
+    color: blue;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  /* one episode block */
+  .vhsBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 6rem;
+    width: 100%;
+  }
+  
+  /* left column (poster + text) */
+  .vhsItem {
+    flex: 1;
+    max-width: 100%;
+    box-sizing: border-box;
+    /* legacy file had height: 400px on mobile; it’s not required for layout,
+       so omitted to avoid clipping long text */
+  }
+  
+  /* poster image inside the left column */
+  .cover {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  /* text sizes under poster — match legacy */
+  .vhsItem h2 {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    font-weight: bold;
+  }
+
+  .vhsItem p {
+    margin: 0.02rem 0;
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+  .vhsItem em {
+    display: block;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  
+  /* right column (stills grid) */
+  .vhsStills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);   /* mobile: 2 wide, 3 rows */
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  .vhsStills img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    max-width: 100%;
+  }
+  
+  /* desktop adjustments */
+  @media (min-width: 768px) {
+    .vhsBlock {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 2rem;
+    }
+    .vhsItem {
+      max-width: 300px;       /* legacy fixed poster column */
+      flex: 0 0 300px;
+      /* height: 400px;       <- commented in legacy; keep off */
+    }
+    .vhsStills {
+      grid-template-columns: repeat(3, 1fr); /* 2 rows of 3 */
+      grid-template-rows: repeat(2, 1fr);
+    }
+  }
+  

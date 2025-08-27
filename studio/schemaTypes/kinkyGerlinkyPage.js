@@ -27,8 +27,6 @@ export default defineType({
             options: { list: ['dvd', 'static', 'external'] },
             initialValue: 'dvd'
           }),
-          defineField({ name: 'dvdRef', type: 'reference', to: [{ type: 'kinkyGerlinkyDvd' }] }),
-          defineField({ name: 'staticRef', type: 'reference', to: [{ type: 'kinkyGerlinkyStatic' }] }),
           defineField({ name: 'externalUrl', type: 'url' })
         ]
       }]

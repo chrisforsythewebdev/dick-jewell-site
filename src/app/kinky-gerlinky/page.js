@@ -19,10 +19,6 @@ export default async function KinkyGerlinkyPage() {
       {/* Pink banner + four links (trailer / watch film / watch VHS / reviews) */}
       <KGHeader bannerUrl={header?.bannerUrl} links={header?.links} />
 
-      {/* If you want a page title/intro under the banner (optional) */}
-      {/* <h1 className="page-title">{title}</h1>
-      {intro && <p className="page-intro">{intro}</p>} */}
-
       {/* Split layout exactly like the original */}
       <section className="kg-layout">
         {/* Left: gallery of figures */}

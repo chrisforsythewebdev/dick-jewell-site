@@ -1,14 +1,53 @@
-export const allFilmsQuery = `
-  *[_type == "film"] | order(year desc) {
+// List page – oldest first 
+export const filmsListQuery = /* groq */ `
+  *[_type == "film"] | order(year asc){
     _id,
     title,
-    slug,
     year,
     duration,
+    "slug": slug.current,
     "thumbnail": thumbnail.asset->url,
     "hoverImage": hoverImage.asset->url
   }
-`
+`;
+
+// Detail page by slug – everything the renderer needs
+export const filmBySlugQuery = /* groq */ `
+  *[_type == "film" && slug.current == $slug][0]{
+    title,
+    seoTitle,
+    year,
+    duration,
+    watchUrl,
+    mainVideo,
+    videoPaddingTop,
+    videoPaddingTopMobile,
+    infoLine,
+    mainCaption,
+    mainCaptionStyle,
+    preVideo,
+    description,
+    "imageGrid": imageGrid[]{
+      "url": image.asset->url,
+      "alt": coalesce(alt, ""),
+      "caption": caption
+    },
+    "footerImages": footerImages[]{
+      "url": image.asset->url,
+      "alt": coalesce(alt, ""),
+      "caption": caption
+    },
+    sections[]{
+      title,
+      videoUrl,
+      caption,
+      text,
+      "images": images[].asset->url
+    },
+    backLinkLabel
+  }
+`;
+
 export const photoPageQuery = `
   *[_type == "photoPage"][0] {
     title,
@@ -318,5 +357,75 @@ export const kinkyGerlinkyPageQuery = /* groq */ `
     closingHtml
   }
 }
+`
+
+export const KG_BUY_DVD = /* groq */ `
+  *[_type == "kinkyGerlinkyBuyDvd"][0]{
+    title,
+    "slug": slug.current,
+    info,
+    "cover": { "url": cover.asset->url, "alt": coalesce(cover.alt, "") },
+    watchUrl,
+    "stills": stills[]{ "url": asset->url, "alt": coalesce(alt, "") },
+    "press": pressRelease{
+      "url": image.asset->url,
+      "alt": coalesce(image.alt, ""),
+      "caption": caption
+    }
+  }
+`
+
+export const KG_VHS = /* groq */ `
+  *[_type == "kinkyGerlinkyVhs"][0]{
+    title,
+    "slug": slug.current,
+    intro,
+    seriesUrl,
+    episodes[]{
+      title,
+      date,
+      "thumb": { "url": thumb.asset->url, "alt": thumb.alt },
+      vimeoUrl,
+      details,
+      "stills": stills[]{ "url": asset->url, "alt": alt }
+    }
+  }
+`
+export const KG_REVIEWS = /* groq */ `
+  *[_type == "kinkyGerlinkyReviews"][0]{
+    title,
+    "slug": slug.current,
+    "items": items[]{
+      "url": image.asset->url,
+      "alt": coalesce(image.alt, ""),
+      caption
+    },
+    "arrows": {
+      "next": arrows.next.asset->url,
+      "back": arrows.back.asset->url
+    }
+  }
+`
+export const KG_TRAILER = /* groq */ `
+  *[_type == "kinkyGerlinkyTrailer"][0]{
+    title,
+    "slug": slug.current,
+    embedUrl
+  }
+`
+
+export const KG_MODELS_BALL = /* groq */ `
+  *[_type == "kgModelsBallPage"][0]{
+    title,
+    subtitle,
+    watchUrl,
+    embedUrl,
+    description,
+    "images": images[]{
+      "url": image.asset->url,
+      "alt": coalesce(alt, ""),
+      caption
+    }
+  }
 `
 

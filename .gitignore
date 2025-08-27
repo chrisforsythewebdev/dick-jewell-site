@@ -25,3 +25,9 @@ yarn-error.log*
 
 # Vercel deployment files (optional)
 .vercel/
+node_modules/
+.next/
+.DS_Store
+.env*
+out/
+

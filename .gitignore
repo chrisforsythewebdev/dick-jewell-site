@@ -31,3 +31,11 @@ node_modules/
 .env*
 out/
 
+
+# build + deps
+node_modules/
+.next/
+.vercel/
+.turbo/
+.cache/
+

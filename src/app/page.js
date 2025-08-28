@@ -40,7 +40,7 @@ export default function HomePage() {
           <img src="/images/homepage/B-&-B.jpg" alt="Burroughs and Bacon" />
         </div>
         <div className="max-w-[300px]">
-          <img src="/images/photos/Peter-Gabriel.jpg" alt="Peter Gabriel" />
+          <img src="/images/homepage/Peter-Gabriel.jpg" alt="Peter Gabriel" />
         </div>
 
         <div className="max-w-[300px] relative group">

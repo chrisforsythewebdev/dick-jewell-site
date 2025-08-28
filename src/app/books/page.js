@@ -30,9 +30,7 @@ export default async function BooksPage() {
   return (
     <main className="photo-page max-w-[1000px] mx-auto px-4">
       <div className='intro'>
-        <h1>
-            {title || 'Books'}
-        </h1>
+        <h1 className="page-title" style={{ marginTop: '0.5em' }}>{title}</h1>
       </div>
 
       {/* Catalogue section */}
@@ -46,6 +44,9 @@ export default async function BooksPage() {
             width={400}
             height={500}
             className="h-auto w-full max-w-[300px] object-contain"
+            priority
+            loading="eager"
+            sizes="(max-width: 640px) 90vw, 300px"
           />
         </div>
       )}

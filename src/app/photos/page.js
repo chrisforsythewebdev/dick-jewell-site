@@ -10,10 +10,11 @@ export default async function PhotosPage() {
 
   return (
     <main className="photo-page max-w-[1200px] mx-auto">
-      <section className="intro">
-        <h1>{title}</h1>
-        <p>First images below are a mixture from the two series <em>People to the Power</em> and <em>Girl Power</em> (2010)</p>
-      </section>
+   
+      <div className='intro'>
+        <h1 className="page-title" style={{ marginTop: '0.5em' }}>{title}</h1>        
+      </div>
+      <p>First images below are a mixture from the two series <em>People to the Power</em> and <em>Girl Power</em> (2010)</p>
 
       <Carousel images={carouselImages} />
 

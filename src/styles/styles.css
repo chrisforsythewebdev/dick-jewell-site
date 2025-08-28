@@ -647,8 +647,21 @@ figcaption {
   text-align: right;
 }
 
-.print-meta  {
-  color: black;
+.print-meta {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.print-meta p {
+  margin-top: 0;
+}
+
+
+.print-meta h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0.3em 0;
 }
 
 .print-page-grid > .print-page-row.center-pair {
@@ -1226,6 +1239,7 @@ video {
   margin: 1rem 0;
 }
 
+
 .video-wrapper iframe {
   position: absolute;
   top: 0;
@@ -1239,7 +1253,56 @@ video {
   font-weight: bold;
   display: inline-block;
   margin-bottom: 2rem;
+  margin-top: 1rem;
 }
+
+.print-detail img {
+  height: 640px;       
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.print-detail {
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.print-detail img {
+  max-width: 100%;
+  height: 550px;
+  display: block;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.print-detail figcaption {
+  margin-top: 0.5em;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  max-width: 100%;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .print-detail {
+    padding: 2rem 1rem;
+  }
+
+  .print-detail figcaption {
+    font-size: 1.1rem;
+  }
+
+  .print-detail img {
+    height: auto;
+  }
+}  
 
 @media (max-width: 768px) {
   .video-wrapper {

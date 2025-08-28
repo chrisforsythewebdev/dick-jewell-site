@@ -30,9 +30,9 @@ export default async function FoundPhotosPage() {
   return (
     <main className="photo-page">
       <div className='intro'>
-      <h1 className="page-title" style={{ marginTop: '1.5em' }}>{title}</h1>        
+      <h1 className="page-title" style={{ marginTop: '0.5em' }}>{title}</h1>        
       </div>
-      {intro && <p className="intro">{intro}</p>}
+      {intro && <p>{intro}</p>}
 
       {/* 1) MAIN CAROUSEL */}
       {mainCarouselImages.length > 0 && (
@@ -136,20 +136,20 @@ export default async function FoundPhotosPage() {
 
       {/* 6) SINGLE VIDEO */}
       {singleVideo && (
-        <div className="video-block">
-          <div className="video-wrapper">
-            <iframe
-              src={singleVideo.src}
-              frameBorder="0"
-              allow="autoplay; fullscreen"
-              allowFullScreen
-            />
+        <div className="video-row">
+          <div className="video-block">
+              <iframe
+                src={singleVideo.src}
+                frameBorder="0"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+              />
+            {singleVideo.caption && (
+              <figcaption
+                dangerouslySetInnerHTML={{ __html: singleVideo.caption.replace(/\n/g, '<br>') }}
+              />
+            )}
           </div>
-          {singleVideo.caption && (
-            <figcaption
-              dangerouslySetInnerHTML={{ __html: singleVideo.caption.replace(/\n/g, '<br>') }}
-            />
-          )}
         </div>
       )}
 

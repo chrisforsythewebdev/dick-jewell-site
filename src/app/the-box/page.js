@@ -25,11 +25,11 @@ export default async function TheBoxPage() {
   return (
     <main className="photo-page max-w-[1200px] mx-auto px-4">
       <div className='intro'>
-        <h1 className="page-title mt-6">{title}</h1>
+        <h1 className="page-title" style={{ marginTop: '0.5em' }}>{title}</h1>
       </div>
 
       {intro && (
-        <p className="intro">{intro}</p>
+        <p>{intro}</p>
       )}
 
       {carouselImages.length > 0 && (

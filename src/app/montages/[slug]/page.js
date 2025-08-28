@@ -1,24 +1,39 @@
+// src/app/montages/[slug]/page.js
+import { notFound } from 'next/navigation'
 import { sanityClient } from '@/lib/client'
-import { montageWorkBySlugQuery, montageWorkSlugsQuery } from '@/lib/queries'
+import {
+  montageDetailSlugsQuery,
+  montageDetailBySlugQuery,
+} from '@/lib/queries'
 
 export const revalidate = 60
 
 export async function generateStaticParams() {
-  const slugs = await sanityClient.fetch(montageWorkSlugsQuery).catch(() => [])
-  return slugs.map((s) => ({ slug: s }))
+  const slugs = await sanityClient.fetch(montageDetailSlugsQuery).catch(() => [])
+  return (slugs || []).map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }) {
-  const { slug } = params
-  const data = await sanityClient.fetch(montageWorkBySlugQuery, { slug }).catch(() => null)
+export async function generateMetadata(props) {
+  const params = await props.params;            
+  const slug = params?.slug ?? ''              
+
+  const data = await sanityClient
+    .fetch(montageDetailBySlugQuery, { slug })
+    .catch(() => null)
+
   const title = data?.seoTitle || data?.title || 'Montage'
   return { title: `${title} – Dick Jewell` }
 }
 
-export default async function MontageDetailPage({ params }) {
-  const { slug } = params
-  const data = await sanityClient.fetch(montageWorkBySlugQuery, { slug })
-  if (!data) return null
+export default async function MontageDetailPage(props) {
+  const params = await props.params;            
+  const slug = params?.slug ?? ''              
+
+  const data = await sanityClient
+    .fetch(montageDetailBySlugQuery, { slug })
+    .catch(() => null)
+
+  if (!data) return notFound()
 
   const {
     title,
@@ -29,17 +44,26 @@ export default async function MontageDetailPage({ params }) {
   } = data
 
   return (
-    <main className="print-detail">
-      <div className="back-link">
+    <main className="print-detail mx-auto max-w-[1000px] px-5 py-8 text-center">
+      <div className="back-link mb-6">
         <a href={backHref}>{backLabel}</a>
       </div>
 
       {figures.map((f, i) => (
-        <figure key={i}>
-          {f.image && <img src={f.image} alt={f.alt || title} />}
+        <figure key={i} className="mb-10">
+          {f.image && (
+            <img
+              src={f.image}
+              alt={f.alt || title}
+              className="mx-auto block h-auto max-w-full"
+            />
+          )}
           {f.caption && (
             <figcaption
-              dangerouslySetInnerHTML={{ __html: f.caption.replace(/\n/g, '<br>') }}
+              className="mt-2 text-base"
+              dangerouslySetInnerHTML={{
+                __html: f.caption.replace(/\n/g, '<br>'),
+              }}
             />
           )}
         </figure>
@@ -47,8 +71,10 @@ export default async function MontageDetailPage({ params }) {
 
       {description && (
         <div
-          className="description"
-          dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br>') }}
+          className="description mx-auto max-w-prose text-left"
+          dangerouslySetInnerHTML={{
+            __html: description.replace(/\n/g, '<br>'),
+          }}
         />
       )}
     </main>

@@ -77,6 +77,7 @@ export const booksPageQuery = `
     afterCarouselCaption,
     regions[]{
       title,
+      _key,
       items[]{
         "image": image.asset->url,
         hostedButtonId,
@@ -101,7 +102,7 @@ export const boxPageQuery = `
   }
 `
 
-// PRINT LIST PAGE
+// list page
 export const allPrintsQuery = `
 *[_type == "print"]{
   _id,
@@ -118,21 +119,17 @@ export const allPrintsQuery = `
 } | order(year asc, title asc)
 `;
 
-// PRINT DETAIL PAGE
+// detail page
 export const printBySlugQuery = `
-  *[_type == "print" && slug.current == $slug][0]{
-    _id,
-    title,
-    year,
-    process,
-    dimensions,
-    description,
-    "images": images[]{
-      "url": image.asset->url,
-      caption
-    }
+*[_type == "print" && slug.current == $slug][0]{
+  _id, title, year, process, dimensions, description, descriptionPosition, seoTitle,
+  "images": images[]{
+    "url": image.asset->url,
+    "caption": coalesce(caption, ""),
+    "desktopHeightPx": desktopHeightPx
   }
-`
+}
+`;
 
 // FOUND PHOTOS PAGE
 export const foundPhotosQuery = `
@@ -214,13 +211,14 @@ export const montagesPageQuery = `
   }
 `
 
-export const montageWorkSlugsQuery = `
-  *[_type == "montageWork" && defined(slug.current)][].slug.current
+export const montageDetailSlugsQuery = `
+  *[_type == "montageDetail" && defined(slug.current)][].slug.current
 `
 
-export const montageWorkBySlugQuery = `
-  *[_type == "montageWork" && slug.current == $slug][0]{
+export const montageDetailBySlugQuery = `
+  *[_type == "montageDetail" && lower(slug.current) == lower($slug)][0]{
     title,
+    "seoTitle": coalesce(seoTitle, title),
     backLabel,
     backHref,
     figures[]{
@@ -228,10 +226,10 @@ export const montageWorkBySlugQuery = `
       alt,
       caption
     },
-    description,
-    seoTitle
+    description
   }
 `
+
 
 export const showsPageQuery = /* groq */ `
   *[_type == "showsPage"][0]{
